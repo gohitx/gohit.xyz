@@ -10,6 +10,13 @@ import '@/styles/global.css';
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Gohit X</title>
+        <script is:inline>
+          ;(function () {
+            const t = localStorage.getItem('theme')
+            const d = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            if (d) document.documentElement.classList.add('dark')
+          })()
+        </script>
 	</head>
 	<body>
 		<slot />

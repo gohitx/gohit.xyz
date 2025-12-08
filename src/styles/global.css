@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    @apply bg-white text-black transition-colors duration-300;
+  }
+  
+  /* Use :where(.dark, .dark *) to match the variant logic or just .dark on html */
+  :root.dark body {
+    @apply bg-black text-white;
+  }
+}
