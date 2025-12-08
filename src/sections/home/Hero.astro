@@ -1,0 +1,9 @@
+---
+import { Image } from 'astro:assets'
+import ThemeToggle from '@/components/ThemeToggle';
+
+---
+<section class="relative flex flex-col items-center p-4">
+    <h1>Hello Hero</h1>
+    <ThemeToggle client:load />
+</section>
