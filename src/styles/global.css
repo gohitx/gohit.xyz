@@ -2,6 +2,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #888 transparent;
+}
+
 /* ==================== 
    Global & BASE STYLES 
    ==================== */
@@ -13,7 +18,7 @@ body {
 }
 
 /* ==================== 
-    Cursor & Scrollbar
+    Cursor custom
    ==================== */
 body {
   cursor: url('/cursors/Pointer.ico'), default;
@@ -26,8 +31,3 @@ input[type="button"]:hover,
 .custom-link:hover {
   cursor: url('/cursors/Link.ico'), pointer;
 }
-
-/* * {
-  scrollbar-width: auto;
-  scrollbar-color: #888 transparent;
-} */
