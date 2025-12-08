@@ -72,31 +72,18 @@ export default function ThemeToggle() {
   }
 
   // Prevent flash of unstyled content
-  if (!isLoaded || isDark === null) {
-    return (
-      <button 
-        aria-label="Loading theme toggle" 
-        className="theme-toggle" 
-        disabled
-        style={{ opacity: 0.5 }}
-      >
-        <div className="w-6 h-6" />
-      </button>
-    )
-  }
+  if (!isLoaded || isDark === null) <div className="w-8 h-8" />
 
   return (
     <button 
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      aria-pressed={isDark}
-      className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors cursor-pointer"
       onClick={toggle}
-      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+      aria-label="Toggle theme"
     >
       {isDark ? (
-        <SunIcon className="w-6 h-6" aria-hidden="true" />
+        <SunIcon className="w-5 h-5 text-white" />
       ) : (
-        <MoonIcon className="w-6 h-6" aria-hidden="true" />
+        <MoonIcon className="w-5 h-5 text-black" />
       )}
     </button>
   )
