@@ -13,12 +13,21 @@ body {
 }
 
 /* ==================== 
-    Scrollbar & Cursor
+    Cursor & Scrollbar
    ==================== */
+body {
+  cursor: url('/cursors/Pointer.ico'), default;
+}
+
+a:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.custom-link:hover {
+  cursor: url('/cursors/Link.ico'), pointer;
+}
+
 /* * {
   scrollbar-width: auto;
   scrollbar-color: #888 transparent;
-} */
-/* body {
-  cursor: url('/cursors/Pointer.ico'), default;
 } */
