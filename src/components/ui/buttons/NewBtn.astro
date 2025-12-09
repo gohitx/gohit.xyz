@@ -1,13 +1,13 @@
 ---
-const { href } = Astro.props
+const { href, text = 'NEW' } = Astro.props
 ---
 
-<a href={href} class="btn-wrapper">
+<a href={href} class="btn-wrapper" target="_blank">
   <div class="btn">
-    <strong>NEW</strong>
+    <strong>{text}</strong>
 
     <!-- NEW Badge -->
-    <span class="badge"> NEW </span>
+    <span class="badge"> {text} </span>
 
     <div id="container-stars">
       <canvas id="stars-canvas"></canvas>
