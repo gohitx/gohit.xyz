@@ -1,10 +1,7 @@
 ---
-import GlowEffect from '@/components/ui/effects/GlowEffect.astro'
 import Layout from '@/layouts/Layout.astro'
-import Hero from '@/sections/home/Hero.astro'
-import Projects from '@/sections/home/Projects.astro'
-import SocialLinks from '@/sections/home/SocialLinks.astro'
-import YouTubeVideo from '@/sections/home/YouTubeVideo.astro'
+import GlowEffect from '@/components/ui/effects/GlowEffect.astro'
+import { Footer, Hero, Projects, SocialLinks, YouTubeVideo } from '@/sections/sections'
 ---
 
 <Layout>
@@ -16,6 +13,7 @@ import YouTubeVideo from '@/sections/home/YouTubeVideo.astro'
     <SocialLinks />
     <Projects />
     <!--  -->
+    <Footer />
   </main>
 </Layout>
 
