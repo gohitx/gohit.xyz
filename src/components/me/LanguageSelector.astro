@@ -1,0 +1,32 @@
+---
+interface Props {
+  currentLang: 'en' | 'es' | 'zh'
+}
+
+const { currentLang } = Astro.props
+
+const languages = [
+  { code: 'en', label: 'EN', href: '/me' },
+  { code: 'es', label: 'ES', href: '/me/es' },
+  { code: 'zh', label: 'ZH', href: '/me/zh' },
+]
+---
+
+<div class="flex items-center gap-2">
+  {
+    languages.map((lang) => (
+      <a
+        href={lang.href}
+        class:list={[
+          'text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-white',
+          currentLang === lang.code
+            ? 'text-gray-900 dark:text-orange-500'
+            : 'text-gray-500 dark:text-gray-400',
+        ]}
+        aria-label={`Switch to ${lang.label}`}
+      >
+        {lang.label}
+      </a>
+    ))
+  }
+</div>

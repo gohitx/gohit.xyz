@@ -1,0 +1,153 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Me from '@/components/me/Me.astro'
+import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
+
+interface Props {
+  lang?: 'en' | 'es' | 'zh'
+}
+
+const { lang = 'en' } = Astro.props
+
+const translations = {
+  en: {
+    title: 'FrontEnd Developer',
+    web: 'web',
+    mobile: 'mobile',
+    intro1: "Hey 👋, I'm",
+    name: 'Gohit',
+    intro2: ', a',
+    role: 'Software Engineer',
+    intro3: 'from',
+    country: 'Peru 🇵🇪',
+    intro4: '. I specialize in',
+    specialty: 'mobile',
+    intro5:
+      "development and I'm a content creator focused on software (programming) and a bit of hardware.",
+    contrib1:
+      'I actively contribute to open-source projects across multiple communities — including Linux and several well-known organizations reflected in my activity. I’m also the creator and maintainer of multiple extensions fo VSCode • Cursor • Windsurf • Trae.ai • Kiro, Firebase Studio, and Antigravity.',
+    linkText: 'Here',
+  },
+  es: {
+    title: 'Desarrollador FrontEnd',
+    web: 'web',
+    mobile: 'móvil',
+    intro1: 'Hola 👋, soy',
+    name: 'Gohit',
+    intro2: ', un',
+    role: 'Ingeniero de Software',
+    intro3: 'de',
+    country: 'Perú 🇵🇪',
+    intro4: '. Me especializo en desarrollo',
+    specialty: 'móvil',
+    intro5: 'y soy creador de contenido enfocado en software (programación) y un poco de hardware.',
+    contrib1:
+      'Contribuyo activamente a proyectos de código abierto en múltiples comunidades — incluyendo Linux y varias organizaciones conocidas reflejadas en mi actividad. También soy el creador y mantenedor de múltiples extensiones para VSCode • Cursor • Windsurf • Trae.ai • Kiro, Firebase Studio y Antigravity.',
+    linkText: 'Aquí',
+  },
+  zh: {
+    title: '前端开发人员',
+    web: 'Web',
+    mobile: '移动端',
+    intro1: '嗨 👋，我是',
+    name: 'Gohit',
+    intro2: '，来自',
+    country: '秘鲁 🇵🇪',
+    role: '的软件工程师',
+    intro3: '。', // Simplified structure for Chinese might be needed, but trying to fit existing structure: "I am Gohit, a Software Engineer from Peru" -> "我是 Gohit, 来自 秘鲁 的 软件工程师"
+    // Let's adjust structure slightly for ZH to flow better if needed, but for now map 1:1 if possible or use full sentences.
+    // Redoing logic for flexibility:
+    // EN: I'm [Gohit], a [Software Engineer] from [Peru].
+    // ZH: 我是 [Gohit]，一名来自 [秘鲁] 的 [软件工程师]。
+    intro4: '。我专注于',
+    specialty: '移动',
+    intro5: '开发，同时也是一名专注于软件（编程）和少量硬件的内容创作者。',
+    contrib1:
+      '我积极参与多个社区的开源项目 —— 包括 Linux 和几个反映在我活动中的知名组织。我也是 VSCode • Cursor • Windsurf • Trae.ai • Kiro、Firebase Studio 和 Antigravity 的多个扩展的创建者和维护者。',
+    linkText: '这里',
+  },
+}
+
+// Adjusting Chinese structure mapping in the template might be tricky with fixed spans.
+// Looking at the original usage:
+// I'm [Gohit], a [Software Engineer] from [Peru].
+// ZH: 我是 [Gohit]，一名 [软件工程师] 来自 [秘鲁] (grammatically awkward).
+// Better ZH: 我是 [Gohit]，一名来自 [秘鲁] 的 [软件工程师]。
+// To support this, I might need to make the template content fully dynamic or conditional.
+// For simplicity, let's keep the structure but realize ZH might read slightly "translated".
+// "我是 Gohit, 一个 软件工程师 从 秘鲁" -> "我是 Gohit, 一个来自 秘鲁 的 软件工程师"
+
+// Let's refine the t object to be specific to the text blocks rather than fragments if possible, OR just handle the fragments.
+// Given strict design with spans, fragments are needed.
+// EN: I'm Gohit, a Software Engineer from Peru.
+// ES: Soy Gohit, un Ingeniero de Software de Perú.
+// ZH: 我是 Gohit，一名来自 秘鲁 的 软件工程师。 (Order change: from Peru -> Software Engineer)
+
+const t = translations[lang]
+
+import LanguageSelector from '@/components/me/LanguageSelector.astro'
+---
+
+<Layout>
+  <main class="relative mx-auto w-full max-w-4xl px-6 py-8">
+    <!-- Header with Back button and Language Selector -->
+    <div class="mb-8 flex items-center justify-between">
+      <BackButtonOne className="mb-0" />
+      <LanguageSelector currentLang={lang} />
+    </div>
+
+    <!-- Main title -->
+    <h1
+      class:list={[
+        'mb-12 font-bold',
+        lang === 'es' ? 'text-[2.2rem] md:text-[2.85rem]' : 'text-4xl md:text-5xl',
+      ]}
+    >
+      {t.title}
+      <span class="inline-block whitespace-nowrap">
+        (<span class="opacity-60">
+          <span>{t.web}</span>,
+          <span>{t.mobile}</span>
+        </span>)
+      </span>
+    </h1>
+
+    <!-- ME Picture -->
+    <Me />
+    <!-- About me -->
+    <article class="space-y-4 leading-relaxed opacity-82">
+      <p>
+        {
+          lang === 'zh' ? (
+            <>
+              {t.intro1} <span class="font-semibold opacity-100">{t.name}</span>，一名来自{' '}
+              <span class="italic">{t.country}</span> 的 <span class="font-semibold">{t.role}</span>
+            </>
+          ) : (
+            <>
+              {t.intro1} <span class="font-semibold opacity-100">{t.name}</span>
+              {t.intro2} <span class="font-semibold">{t.role}</span> {t.intro3}{' '}
+              <span class="italic">{t.country}</span>
+            </>
+          )
+        }
+        {t.intro4}
+        <span class="font-semibold opacity-100">{t.specialty}</span>
+        {t.intro5}
+      </p>
+
+      <p>
+        {t.contrib1}
+        <a
+          class="text-blue-600 hover:text-blue-500"
+          href="https://marketplace.visualstudio.com/publishers/bastndev"
+          target="_blank"
+        >
+          {t.linkText}
+        </a>
+      </p>
+    </article>
+
+    <!-- Articles -->
+  </main>
+</Layout>
