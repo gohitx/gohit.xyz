@@ -41,7 +41,7 @@ export const siteConfig: SiteConfig = {
   name: 'Gohit X',
   username: '@gohitx',
   url: 'https://gohit.xyz',
-  ogImage: '/favicon.ico', // TODO: Create proper og-image.png (1200x630px)
+  ogImage: '/github/screenshot.webp', // Open Graph image for social media sharing and SEO
 
   author: {
     name: 'Gohit Bastian',
