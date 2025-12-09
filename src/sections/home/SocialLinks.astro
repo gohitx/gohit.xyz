@@ -1,0 +1,102 @@
+---
+// prettier-ignore
+import { GitHubThinIcon, InstagramIcon, LinkedInIcon, TikTokIcon, TwitterIcon, YouTubeIcon } from '@/components/icons/icons.ts';
+---
+
+<section class="animate-rise-up flex flex-wrap justify-center gap-3 pt-2 md:gap-4">
+  {
+    [
+      {
+        href: 'https://www.youtube.com/@gohitx?sub_confirmation=1',
+        label: 'YouTube - gohitx',
+        color: '#FF0000',
+        Icon: YouTubeIcon,
+      },
+      {
+        href: 'https://github.com/gohitx',
+        label: 'GitHub - gohitx',
+        color: '#ffffff',
+        Icon: GitHubThinIcon,
+      },
+      {
+        href: 'https://www.linkedin.com/in/gohitx/',
+        label: 'LinkedIn - gohitx',
+        color: '#0077B5',
+        Icon: LinkedInIcon,
+      },
+      {
+        href: 'https://instagram.com/gohitx',
+        label: 'Instagram - gohitx',
+        color: '#FF4ACF',
+        Icon: InstagramIcon,
+      },
+      {
+        href: 'https://tiktok.com/@gohitx',
+        label: 'TikTok - gohitx',
+        color: '#000000',
+        Icon: TikTokIcon,
+      },
+      {
+        href: 'https://twitter.com/gohitx',
+        label: 'Twitter - gohitx',
+        color: '#1DA1F2',
+        Icon: TwitterIcon,
+      },
+    ].map(({ href, label, color, Icon }) => (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        style={{ '--clr': color }}
+        class="social-link h-8 w-8 md:h-10 md:w-10"
+      >
+        <Icon className="h-5 w-5 md:h-6 md:w-6" />
+      </a>
+    ))
+  }
+</section>
+
+<!-- --- --- --- --- MARK: Styles -->
+<style>
+  .social-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15%;
+    /* Smooth transition for transform */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    cursor: pointer;
+  }
+
+  .social-link:hover {
+    transform: translateY(-6px); /* More pronounced and smooth lift */
+  }
+</style>
+
+<!-- --- --- --- --- MARK: Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const socialLinks = document.querySelectorAll('.social-link')
+    const changingLight = document.querySelector('.changing_light') as HTMLElement
+    const defaultLightColor = 'radial-gradient(circle 400px at 50% 300px, #4d4d4d36, transparent)'
+
+    socialLinks.forEach((link) => {
+      // Mouse enter event to change the background light
+      link.addEventListener('mouseenter', function (this: HTMLElement) {
+        const color = this.style.getPropertyValue('--clr')
+        if (changingLight && color) {
+          changingLight.style.background = `radial-gradient(circle 400px at 50% 300px, ${color}36, transparent)`
+        }
+      })
+
+      // Mouse leave event to reset the background light
+      link.addEventListener('mouseleave', () => {
+        if (changingLight) {
+          changingLight.style.background = defaultLightColor
+        }
+      })
+    })
+  })
+</script>

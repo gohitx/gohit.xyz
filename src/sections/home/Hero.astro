@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets'
+import { GithubStartBtn } from '@/components/ui/ui'
+import meImage from '@/assets/images/profile/me.webp'
+import ThemeToggle from '@/components/ThemeToggle'
+---
+
+<section class="relative flex flex-col items-center p-4">
+  <!-- Theme & Github -->
+  <div class="absolute top-4 right-4 flex gap-2">
+    <GithubStartBtn />
+    <ThemeToggle client:idle />
+  </div>
+
+  <!-- Profile -->
+  <article class="z-10 flex flex-col items-center">
+    <div
+      class="h-[90px] w-[90px] overflow-hidden rounded-[40%] border-[3px] border-neutral-800 shadow-lg grayscale transition-all duration-300 hover:grayscale-0"
+    >
+      <a href="/me" aria-label="Go to about me page" class="cursor-none">
+        <Image
+          src={meImage}
+          alt="me"
+          class="h-full w-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+          itemprop="image"
+        />
+      </a>
+    </div>
+    <h1 class="cursor-default pt-1 text-[14px] font-normal">@gohitx</h1>
+  </article>
+</section>

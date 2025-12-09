@@ -1,0 +1,50 @@
+---
+import { ArrowLeftIcon } from '@/components/icons/icons'
+
+interface Props {
+  href?: string
+  text?: string
+  ariaLabel?: string
+  className?: string
+  showIcon?: boolean
+  useHistory?: boolean
+}
+
+const {
+  href = '/',
+  text = 'Back',
+  ariaLabel = 'Go back',
+  className = '',
+  showIcon = true,
+  useHistory = false,
+} = Astro.props
+---
+
+<div class={`mb-8 flex items-center gap-4 ${className}`}>
+  {
+    useHistory ? (
+      <button
+        type="button"
+        aria-label={ariaLabel}
+        class="group flex cursor-pointer items-center gap-2 border-none bg-transparent p-0 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"
+        onclick="history.back()"
+      >
+        {showIcon && (
+          <ArrowLeftIcon className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
+        )}
+        <span class="text-sm">{text}</span>
+      </button>
+    ) : (
+      <a
+        href={href}
+        aria-label={ariaLabel}
+        class="group flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"
+      >
+        {showIcon && (
+          <ArrowLeftIcon className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
+        )}
+        <span class="text-sm">{text}</span>
+      </a>
+    )
+  }
+</div>

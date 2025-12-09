@@ -1,11 +1,51 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-
-
+import Layout from '@/layouts/Layout.astro'
+import Me from '@/components/ui/Me.astro'
+import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
 ---
+
 <Layout>
+  <main class="relative mx-auto w-full max-w-4xl px-6 py-8">
+    <!-- back -->
+    <BackButtonOne />
 
-    <h1>Here is me</h1>
+    <!-- Main title -->
+    <h1 class="mb-12 text-4xl font-bold md:text-5xl">
+      FrontEnd Developer
+      <span class="block sm:inline">
+        (<span class="opacity-60">
+          <span>web</span>,
+          <span>mobile</span>
+        </span>)
+      </span>
+    </h1>
+
+    <!-- ME Picture -->
+    <Me />
+    <!-- About me -->
+    <article class="space-y-4 leading-relaxed opacity-82">
+      <p>
+        Hey 👋, I'm <span class="font-semibold opacity-100">Gohit</span>, a{' '}
+        <span class="font-semibold">Software Engineer</span> from{' '}
+        <span class="italic">Peru 🇵🇪</span>. I specialize in <span class="font-semibold opacity-100"
+          >mobile</span
+        > development and I'm a content creator focused on software (programming) and a bit of hardware.
+      </p>
+
+      <p>
+        I actively contribute to open-source projects across multiple communities — including Linux
+        and several well-known organizations reflected in my activity. I’m also the creator and
+        maintainer of multiple extensions fo VSCode • Cursor • Windsurf • Trae.ai • Kiro, Firebase
+        Studio, and Antigravity. <a
+          class="text-blue-600 hover:text-blue-500"
+          href="https://marketplace.visualstudio.com/publishers/bastndev"
+          target="_blank"
+        >
+          Here
+        </a>
+      </p>
+    </article>
+
+    <!-- Articles -->
+  </main>
 </Layout>
-
-<a href="/">Home</a>
