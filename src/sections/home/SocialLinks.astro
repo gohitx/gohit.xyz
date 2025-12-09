@@ -79,8 +79,11 @@ import { GitHubThinIcon, InstagramIcon, LinkedInIcon, TikTokIcon, TwitterIcon, Y
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const socialLinks = document.querySelectorAll('.social-link')
-    const changingLight = document.querySelector('.changing_light') as HTMLElement
+    const changingLight = document.querySelector('.changing_light') as HTMLElement | null
     const defaultLightColor = 'radial-gradient(circle 400px at 50% 300px, #4d4d4d36, transparent)'
+
+    // Only add event listeners if changingLight element exists
+    if (!changingLight) return
 
     socialLinks.forEach((link) => {
       // Mouse enter event to change the background light

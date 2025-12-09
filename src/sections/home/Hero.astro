@@ -17,7 +17,11 @@ import ThemeToggle from '@/components/ThemeToggle'
     <div
       class="h-[90px] w-[90px] overflow-hidden rounded-[40%] border-[3px] border-neutral-800 shadow-lg grayscale transition-all duration-300 hover:grayscale-0"
     >
-      <a href="/me" aria-label="Go to about me page" class="cursor-none">
+      <a
+        href="/me"
+        aria-label="Go to about me page"
+        class="block cursor-none rounded-[40%] focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+      >
         <Image
           src={meImage}
           alt="me"

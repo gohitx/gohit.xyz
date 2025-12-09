@@ -41,7 +41,7 @@ export const siteConfig: SiteConfig = {
   name: 'Gohit X',
   username: '@gohitx',
   url: 'https://gohit.xyz',
-  ogImage: '/og-image.png', // You'll need to add this image
+  ogImage: '/favicon.ico', // TODO: Create proper og-image.png (1200x630px)
 
   author: {
     name: 'Gohit Bastian',
@@ -58,7 +58,7 @@ export const siteConfig: SiteConfig = {
   social: {
     youtube: 'https://www.youtube.com/@gohitx',
     github: 'https://github.com/gohitx',
-    linkedin: '', // Add your LinkedIn URL if available
+    linkedin: 'https://www.linkedin.com/in/gohitx/',
     twitter: 'https://twitter.com/gohitx',
     instagram: 'https://www.instagram.com/gohitx',
     tiktok: 'https://www.tiktok.com/@gohitx',
@@ -71,6 +71,7 @@ export const siteConfig: SiteConfig = {
     sameAs: [
       'https://www.youtube.com/@gohitx',
       'https://github.com/gohitx',
+      'https://www.linkedin.com/in/gohitx/',
       'https://twitter.com/gohitx',
       'https://www.instagram.com/gohitx',
       'https://www.tiktok.com/@gohitx',
