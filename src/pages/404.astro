@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro'
+import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
+---
+
+<Layout title="404 a">
+  <div class="flex h-screen flex-col items-center justify-center text-center">
+    <div class="copy-container">
+      <!-- Txt 404 -->
+      <p class="pl-2"><span class="typing-text"></span><span class="cursor"></span></p>
+
+      <!-- Back Button-->
+      <BackButtonOne href="/" text="Home" />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  p {
+    font-size: 20px;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-color: #f84f00;
+    animation: blink 0.7s infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .copy-container {
+    font-family: monospace;
+  }
+
+  .typing-text {
+    display: inline;
+  }
+</style>
+
+<script>
+  const TEXT = '404, page not found.'
+  const SPEED_MS = 100
+
+  function initTyping() {
+    const element = document.querySelector('.typing-text')
+    if (!element) return
+
+    let index = 0
+
+    function type() {
+      if (index < TEXT.length) {
+        element!.textContent += TEXT.charAt(index)
+        index++
+        setTimeout(type, SPEED_MS)
+      }
+    }
+
+    type()
+  }
+
+  initTyping()
+</script>

@@ -1,0 +1,118 @@
+---
+/**
+ * Me page template - Main template for personal bio page
+ * Supports internationalization (en, es, zh)
+ */
+import Layout from '@/layouts/Layout.astro'
+import type { Language } from './i18n/languages'
+import { getTranslations } from './i18n/translations'
+import { getAllLanguageRoutes } from './i18n/utils'
+
+import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
+import LanguageSelector from '@/components/me/LanguageSelector.astro'
+import MePicture from '@/components/me/MePicture.astro'
+import MidLineSeparator from '../ui/effects/decorative/MidLineSeparator.astro'
+
+interface Props {
+  lang?: Language
+}
+
+const { lang = 'en' } = Astro.props
+
+// Get translations for current language
+const t = getTranslations(lang)
+
+// Get all language routes for SEO
+const languageRoutes = getAllLanguageRoutes('/me')
+
+// Build full URL for canonical and alternates
+const baseUrl = 'https://gohit.xyz'
+const currentUrl = languageRoutes.find((route) => route.lang === lang)?.href || '/me'
+
+// Profile constants
+const PROFILE = {
+  name: 'Gohit Bastian',
+  username: 'gohitx',
+  vscodeMarketplace: 'https://marketplace.visualstudio.com/publishers/bastndev',
+}
+---
+
+<Layout title={t.metaTitle} description={t.metaDescription}>
+  <svelte:head>
+    <!-- Canonical URL -->
+    <link rel="canonical" href={`${baseUrl}${currentUrl}`} />
+
+    <!-- Language alternates for SEO -->
+    {
+      languageRoutes.map((route) => (
+        <link rel="alternate" hreflang={route.lang} href={`${baseUrl}${route.href}`} />
+      ))
+    }
+  </svelte:head>
+
+  <main class="relative mx-auto w-full max-w-4xl px-6 py-8">
+    <!-- Header with Back button and Language Selector -->
+    <header class="mb-8 flex items-center justify-between">
+      <BackButtonOne className="mb-0!" />
+      <LanguageSelector currentLang={lang} />
+    </header>
+
+    <!-- Main title -->
+    <h1
+      class:list={[
+        'mb-12 font-bold',
+        lang === 'es' ? 'text-[2.2rem] md:text-[2.85rem]' : 'text-4xl md:text-5xl',
+      ]}
+    >
+      {t.title}
+      <span class="inline-block whitespace-nowrap">
+        (<span class="opacity-60">
+          <span>{t.web}</span>,
+          <span>{t.mobile}</span>
+        </span>)
+      </span>
+    </h1>
+
+    <!-- Profile Picture -->
+    <MePicture />
+
+    <!-- About me content -->
+    <article class="space-y-4 leading-relaxed text-gray-700 dark:text-gray-300">
+      <p>
+        {
+          lang === 'zh' ? (
+            <>
+              {t.intro1} <span class="font-semibold opacity-100">{t.name}</span>，一名来自{' '}
+              <span class="italic">{t.country}</span> 的 <span class="font-semibold">{t.role}</span>
+            </>
+          ) : (
+            <>
+              {t.intro1} <span class="font-semibold opacity-100">{t.name}</span>
+              {t.intro2} <span class="font-semibold">{t.role}</span> {t.intro3}{' '}
+              <span class="italic">{t.country}</span>
+            </>
+          )
+        }
+        {t.intro4}
+        <span class="font-semibold opacity-100">{t.specialty}</span>
+        {t.intro5}
+      </p>
+
+      <p>
+        {t.contrib1}
+        <a
+          class="text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+          href={PROFILE.vscodeMarketplace}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View VSCode extensions on marketplace"
+        >
+          {t.linkText}
+        </a>
+      </p>
+    </article>
+
+    <!-- Separator -->
+    <MidLineSeparator text="Working 🛠️" />
+  </main>
+</Layout>
