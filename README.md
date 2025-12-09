@@ -119,18 +119,6 @@ bun run preview
 - 📱 **Fully Responsive** - Mobile-first design
 - 🔍 **SEO Optimized** - Rich meta tags & structured data
 
----
-
-## 📊 Performance
-
-- **Lighthouse Score**: 90+ (Performance)
-- **WebP Images**: Optimized image formats
-- **View Transitions**: Smooth page navigation
-- **Lazy Loading**: React components with `client:idle`
-- **Minimal JS**: Astro's zero-JS by default approach
-
----
-
 ## �️ Adding Integrations
 
 ### Tailwind CSS
@@ -150,12 +138,6 @@ bunx astro add react
 ```bash
 bun add -d prettier prettier-plugin-astro prettier-plugin-tailwindcss
 ```
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ---
 
