@@ -4,20 +4,21 @@
 
 **Modern Portfolio & Blog** — Built with Astro 5, React & Tailwind CSS
 
-[![Astro](https://img.shields.io/badge/Astro-5.16.4-FF5D01?style=flat&logo=astro)](https://astro.build)
-[![React](https://img.shields.io/badge/React-19.2.1-61DAFB?style=flat&logo=react)](https://react.dev)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=flat&logo=vercel)](https://www.gohit.xyz)
+[![Astro](https://img.shields.io/badge/Astro-5.15.6-FF5D01?style=flat&logo=astro)](https://astro.build)
+[![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat&logo=react)](https://react.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.17-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
 [![Bun](https://img.shields.io/badge/Bun-Runtime-000000?style=flat&logo=bun)](https://bun.sh)
 
-[**Architecture**](./ARCHITECTURE.md)
-
----
-
-<img src="public/github/screenshot.webp" alt="Portfolio Screenshot" width="800" />
+<a href="https://www.gohit.xyz/">
+    <img src="public/github/screenshot.webp" alt="Portfolio Screenshot" width="800" />
+</a>
 
 <br />
 
-<img src="public/github/performance.webp" alt="Performance Score" width="444" />
+<a href="https://pagespeed.web.dev/analysis/https-www-gohit-xyz/jn7lk57q5c?form_factor=mobile">
+    <img src="public/github/performance.webp" alt="Performance Score" width="444" />
+</a>
 
 </div>
 
