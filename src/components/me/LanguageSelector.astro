@@ -1,32 +1,49 @@
 ---
+/**
+ * Language selector component
+ * Displays available languages and allows switching between them
+ */
+import { LANGUAGE_CONFIG, type Language } from './i18n/languages'
+import { getLanguageRoute } from './i18n/utils'
+
 interface Props {
-  currentLang: 'en' | 'es' | 'zh'
+  currentLang: Language
 }
 
 const { currentLang } = Astro.props
 
-const languages = [
-  { code: 'en', label: 'EN', href: '/me' },
-  { code: 'es', label: 'ES', href: '/me/es' },
-  { code: 'zh', label: 'ZH', href: '/me/zh' },
-]
+const languages = Object.values(LANGUAGE_CONFIG).map((config) => ({
+  ...config,
+  href: getLanguageRoute(config.code),
+  isActive: currentLang === config.code,
+}))
 ---
 
-<div class="flex items-center gap-2">
+<nav class="flex items-center gap-2" aria-label="Language selector">
   {
-    languages.map((lang) => (
-      <a
-        href={lang.href}
-        class:list={[
-          'text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-white',
-          currentLang === lang.code
-            ? 'text-gray-900 dark:text-orange-500'
-            : 'text-gray-500 dark:text-gray-400',
-        ]}
-        aria-label={`Switch to ${lang.label}`}
-      >
-        {lang.label}
-      </a>
+    languages.map((lang, index) => (
+      <>
+        <a
+          href={lang.href}
+          class:list={[
+            'rounded-md px-2 py-1 text-sm font-medium transition-all duration-200',
+            'hover:bg-gray-100 dark:hover:bg-gray-800',
+            lang.isActive
+              ? 'font-bold text-gray-900 dark:text-orange-500'
+              : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white',
+          ]}
+          aria-label={`Switch to ${lang.nativeName}`}
+          aria-current={lang.isActive ? 'page' : undefined}
+          title={lang.nativeName}
+        >
+          {lang.label}
+        </a>
+        {index < languages.length - 1 && (
+          <span class="text-gray-300 dark:text-gray-700" aria-hidden="true">
+            •
+          </span>
+        )}
+      </>
     ))
   }
-</div>
+</nav>

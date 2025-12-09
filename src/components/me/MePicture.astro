@@ -1,39 +1,52 @@
 ---
+/**
+ * Profile picture and social links component
+ */
 import meImage from '@/assets/images/profile/me.webp'
 import { GitHubIcon, TwitterIcon } from '../icons/icons'
+
+const PROFILE = {
+  name: 'Gohit Bastian',
+  username: 'gohitx',
+  twitter: 'https://twitter.com/gohitx',
+  github: 'https://github.com/gohitx',
+}
 ---
 
-<!-- Author Profile -->
-<div class="mb-4">
+<article class="mb-6">
   <div class="flex items-center gap-4">
     <div
-      class="relative h-16 w-16 overflow-hidden rounded-full border-4 border-gray-300 shadow-xl ring-2 ring-gray-300 dark:border-gray-800 dark:ring-gray-800"
+      class="relative h-16 w-16 overflow-hidden rounded-full border-4 border-gray-300 shadow-xl ring-2 ring-gray-300 transition-transform duration-200 hover:scale-105 dark:border-gray-800 dark:ring-gray-800"
     >
       <img
-        alt="Gohit Bastian Profile"
+        alt={`${PROFILE.name} Profile Picture`}
         class="h-full w-full object-cover"
         loading="eager"
         src={meImage.src}
+        width="64"
+        height="64"
       />
     </div>
     <div>
-      <div class="text-xl font-semibold">Gohit Bastian</div>
-      <div class="flex items-center gap-2 text-sm text-gray-400">
-        <span>@gohitx</span>
-        <div class="flex gap-1.5">
+      <h2 class="text-xl font-semibold">{PROFILE.name}</h2>
+      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <span>@{PROFILE.username}</span>
+        <div class="flex gap-1.5" aria-label="Social media links">
           <a
-            href="https://twitter.com/gohitx"
+            href={PROFILE.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            class="transition-colors hover:text-[#f84f00]"
+            class="transition-colors duration-200 hover:text-[#1DA1F2]"
+            aria-label={`Follow ${PROFILE.username} on Twitter`}
           >
             <TwitterIcon className="h-4 w-4" />
           </a>
           <a
-            href="https://github.com/gohitx"
+            href={PROFILE.github}
             target="_blank"
             rel="noopener noreferrer"
-            class="transition-colors hover:text-[#f84f00]"
+            class="transition-colors duration-200 hover:text-[#6e5494]"
+            aria-label={`Visit ${PROFILE.username}'s GitHub profile`}
           >
             <GitHubIcon className="h-4 w-4" />
           </a>
@@ -41,4 +54,4 @@ import { GitHubIcon, TwitterIcon } from '../icons/icons'
       </div>
     </div>
   </div>
-</div>
+</article>
