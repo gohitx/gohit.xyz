@@ -1,0 +1,146 @@
+---
+import YoutubeBtn from '@/components/ui/buttons/YoutubeBtn.astro'
+
+import { youtubeVideoUrl } from '@/data/youtube'
+const videoId = youtubeVideoUrl.split('v=')[1]?.split('&')[0] || ''
+---
+
+<section class="flex w-full justify-center pt-1">
+  <div class="w-full max-w-3xl">
+    <a
+      href={youtubeVideoUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group relative block aspect-video overflow-hidden rounded-xl shadow-lg"
+    >
+      <!-- Blur Placeholder (fast loading) -->
+      <img
+        src={`https://img.youtube.com/vi/${videoId}/default.jpg`}
+        alt="Loading preview"
+        fetchpriority="low"
+        class="blur-placeholder absolute inset-0 h-full w-full scale-110 object-cover blur-lg transition-opacity duration-500"
+      />
+
+      <!-- Skeleton with shimmer over the blur -->
+      <div class="skeleton-overlay absolute inset-0 bg-gray-900/20 transition-opacity duration-500">
+        <div class="skeleton-shimmer absolute inset-0"></div>
+      </div>
+
+      <!-- High-quality image -->
+      <img
+        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        alt="Latest YouTube Video"
+        loading="lazy"
+        fetchpriority="low"
+        class="high-quality-image absolute inset-0 h-full w-full object-cover"
+      />
+
+      <YoutubeBtn />
+    </a>
+  </div>
+</section>
+
+<style>
+  /* Blur placeholder - hidden by default if cached */
+  .blur-placeholder {
+    filter: blur(20px);
+    transform: scale(1.1);
+    opacity: 0; /* Start hidden */
+  }
+
+  .blur-placeholder.show {
+    opacity: 1;
+  }
+
+  .blur-placeholder.hide {
+    opacity: 0;
+  }
+
+  /* Skeleton overlay - hidden by default if cached */
+  .skeleton-overlay {
+    pointer-events: none;
+    opacity: 0; /* Start hidden */
+  }
+
+  .skeleton-overlay.show {
+    opacity: 1;
+  }
+
+  .skeleton-overlay.hide {
+    opacity: 0;
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 100%
+    );
+    animation: shimmer 2s infinite ease-in-out;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* High-quality image */
+  .high-quality-image {
+    transition:
+      opacity 0.7s ease-out,
+      transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother transition */
+    opacity: 0; /* Start hidden */
+  }
+
+  .high-quality-image.instant-show {
+    opacity: 1;
+    transform: scale(1); /* Ensure it's not scaled initially if instant-shown */
+  }
+
+  .high-quality-image.fade-in {
+    opacity: 1;
+  }
+
+  /* Hover effect for the high-quality image */
+  .group:hover .high-quality-image {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const highQualityImg = document.querySelector('.high-quality-image') as HTMLImageElement
+    const blurPlaceholder = document.querySelector('.blur-placeholder') as HTMLElement
+    const skeletonOverlay = document.querySelector('.skeleton-overlay') as HTMLElement
+
+    if (highQualityImg && blurPlaceholder && skeletonOverlay) {
+      if (highQualityImg.complete && highQualityImg.naturalHeight !== 0) {
+        highQualityImg.classList.add('instant-show')
+        blurPlaceholder.classList.add('hide')
+        skeletonOverlay.classList.add('hide')
+      } else {
+        blurPlaceholder.classList.add('show')
+        skeletonOverlay.classList.add('show')
+
+        const handleImageLoad = () => {
+          highQualityImg.classList.add('fade-in')
+          setTimeout(() => {
+            blurPlaceholder.classList.add('hide')
+            skeletonOverlay.classList.add('hide')
+          }, 700)
+        }
+
+        highQualityImg.addEventListener('load', handleImageLoad)
+        highQualityImg.addEventListener('error', () => {
+          blurPlaceholder.classList.add('hide')
+          skeletonOverlay.classList.add('hide')
+        })
+      }
+    }
+  })
+</script>
