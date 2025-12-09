@@ -1,0 +1,16 @@
+---
+interface Props {
+    marginTop?: string;
+    marginBottom?: string;
+}
+
+const { marginTop = "mt-10", marginBottom = "mb-12" } = Astro.props;
+---
+
+  <div class={`${marginTop} ${marginBottom} relative mx-auto mb-12 max-w-4xl`}>
+    <hr class="h-px w-full border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent"/>
+
+    <div 
+        class="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gray-700 bg-black">
+    </div>
+  </div>
