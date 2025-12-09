@@ -1,3 +1,172 @@
 ---
+/**
+ * SEO Component - Comprehensive meta tags and structured data
+ *
+ * Features:
+ * - Basic meta tags (title, description, keywords)
+ * - Open Graph (Facebook, LinkedIn)
+ * - Twitter Cards
+ * - Canonical URLs and hreflang
+ * - JSON-LD Structured Data (Person, Organization, ItemList)
+ */
+import type { Language } from './me/i18n/languages'
+import { siteConfig, getDefaultTitle, getDefaultDescription, getKeywords } from '@/config/seoConfig'
 
+export interface Extension {
+  name: string
+  href: string
+  imgSrc?: string
+}
+
+interface Props {
+  title?: string
+  description?: string
+  lang?: Language
+  canonical?: string
+  image?: string
+  type?: 'website' | 'profile' | 'article'
+  author?: string
+  publishedTime?: string
+  modifiedTime?: string
+  extensions?: Extension[]
+  noindex?: boolean
+}
+
+const {
+  title,
+  description,
+  lang = 'en',
+  canonical,
+  image,
+  type = 'website',
+  author,
+  publishedTime,
+  modifiedTime,
+  extensions,
+  noindex = false,
+} = Astro.props
+
+// Build full URLs
+const pageUrl = canonical ? `${siteConfig.url}${canonical}` : siteConfig.url
+const ogImage = image || siteConfig.ogImage
+const fullImageUrl = ogImage.startsWith('http') ? ogImage : `${siteConfig.url}${ogImage}`
+
+// Get defaults if not provided
+const pageTitle = title || getDefaultTitle(lang)
+const pageDescription = description || getDefaultDescription(lang)
+const keywords = getKeywords(lang)
+
+// Language codes for hreflang
+const languageCodes = {
+  en: 'en',
+  es: 'es',
+  zh: 'zh-CN',
+}
+
+// Person Schema (JSON-LD)
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.author.name,
+  alternateName: siteConfig.author.alternateName,
+  url: siteConfig.url,
+  image: `${siteConfig.url}${siteConfig.author.image}`,
+  jobTitle: siteConfig.author.jobTitle[lang],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Lima',
+    addressCountry: 'Peru',
+  },
+  sameAs: Object.values(siteConfig.social).filter((url) => url),
+}
+
+// Organization Schema (JSON-LD)
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteConfig.organization.name,
+  url: siteConfig.organization.url,
+  logo: siteConfig.organization.logo,
+  sameAs: siteConfig.organization.sameAs,
+}
+
+// ItemList Schema for extensions (if provided)
+const itemListSchema = extensions
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: extensions.map((ext, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'SoftwareApplication',
+          name: ext.name,
+          url: ext.href,
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Visual Studio Code',
+          author: {
+            '@type': 'Person',
+            name: siteConfig.author.name,
+          },
+        },
+      })),
+    }
+  : null
 ---
+
+<!-- Primary Meta Tags -->
+<title>{pageTitle}</title>
+<meta name="title" content={pageTitle} />
+<meta name="description" content={pageDescription} />
+<meta name="keywords" content={keywords.join(', ')} />
+<meta name="author" content={author || siteConfig.author.name} />
+<meta name="language" content={languageCodes[lang]} />
+
+<!-- Robots -->
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Canonical URL -->
+<link rel="canonical" href={pageUrl} />
+
+<!-- Language Alternates (hreflang) -->
+<link rel="alternate" hreflang="en" href={`${siteConfig.url}/me`} />
+<link rel="alternate" hreflang="es" href={`${siteConfig.url}/es/me`} />
+<link rel="alternate" hreflang="zh-CN" href={`${siteConfig.url}/zh/me`} />
+<link rel="alternate" hreflang="x-default" href={`${siteConfig.url}/me`} />
+
+<!-- Open Graph / Facebook / LinkedIn -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={pageDescription} />
+<meta property="og:image" content={fullImageUrl} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:locale" content={languageCodes[lang]} />
+
+{
+  type === 'article' && (
+    <>
+      {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+      {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+      {author && <meta property="article:author" content={author} />}
+    </>
+  )
+}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={pageUrl} />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={pageDescription} />
+<meta name="twitter:image" content={fullImageUrl} />
+<meta name="twitter:creator" content={siteConfig.username} />
+<meta name="twitter:site" content={siteConfig.username} />
+
+<!-- Additional Meta Tags -->
+<meta name="theme-color" content="#000000" />
+<meta name="color-scheme" content="dark light" />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+{itemListSchema && <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />}

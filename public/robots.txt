@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow admin or private pages if any
+# Disallow: /admin/
+
+Sitemap: https://gohit.xyz/sitemap.xml

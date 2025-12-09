@@ -40,7 +40,10 @@ const { href = 'https://github.com/gohitx/gohit.xyz', repo = 'gohitx/gohit.xyz' 
           maximumFractionDigits: 1,
         }).format(stars)
       } catch (error) {
-        console.error(`Error fetching GitHub stars for ${repo}:`, error)
+        // Only log errors in development
+        if (import.meta.env.DEV) {
+          console.error(`Error fetching GitHub stars for ${repo}:`, error)
+        }
         element.textContent = '0'
       }
     })

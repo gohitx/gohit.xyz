@@ -1,26 +1,61 @@
 ---
-import '@/styles/global.css';
+import '@/styles/global.css'
+import SEO from '@/components/SEO.astro'
+import type { Language } from '@/components/me/i18n/languages'
+import type { Extension } from '@/components/SEO.astro'
+
+interface Props {
+  title?: string
+  description?: string
+  lang?: Language
+  canonical?: string
+  image?: string
+  type?: 'website' | 'profile' | 'article'
+  extensions?: Extension[]
+}
+
+const {
+  title,
+  description,
+  lang = 'en',
+  canonical,
+  image,
+  type = 'website',
+  extensions,
+} = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Gohit X</title>
-        <script is:inline>
-          ;(function () {
-            const t = localStorage.getItem('theme')
-            const d = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)
-            if (d) document.documentElement.classList.add('dark')
-          })()
-        </script>
-	</head>
-	<body class="bg-white text-black dark:bg-black dark:text-white transition-colors duration-400">
-		<div class="flex min-h-screen w-full items-center justify-center">
-			<slot />
-		</div>
-	</body>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Component -->
+    <SEO
+      title={title}
+      description={description}
+      lang={lang}
+      canonical={canonical}
+      image={image}
+      type={type}
+      extensions={extensions}
+    />
+
+    <!-- Theme Script -->
+    <script is:inline>
+      ;(function () {
+        const t = localStorage.getItem('theme')
+        const d = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        if (d) document.documentElement.classList.add('dark')
+      })()
+    </script>
+  </head>
+  <body class="bg-white text-black transition-colors duration-400 dark:bg-black dark:text-white">
+    <div class="flex min-h-screen w-full items-center justify-center">
+      <slot />
+    </div>
+  </body>
 </html>
