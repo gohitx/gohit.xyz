@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://gohit.xyz/</loc>
+    <lastmod>2025-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Me Page - English -->
+  <url>
+    <loc>https://gohit.xyz/me</loc>
+    <lastmod>2025-12-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gohit.xyz/me"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gohit.xyz/es/me"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://gohit.xyz/zh/me"/>
+  </url>
+  
+  <!-- Me Page - Spanish -->
+  <url>
+    <loc>https://gohit.xyz/es/me</loc>
+    <lastmod>2025-12-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gohit.xyz/me"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gohit.xyz/es/me"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://gohit.xyz/zh/me"/>
+  </url>
+  
+  <!-- Me Page - Chinese -->
+  <url>
+    <loc>https://gohit.xyz/zh/me</loc>
+    <lastmod>2025-12-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gohit.xyz/me"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://gohit.xyz/es/me"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://gohit.xyz/zh/me"/>
+  </url>
+  
+</urlset>
