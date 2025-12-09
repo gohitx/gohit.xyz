@@ -1,9 +1,24 @@
 ---
+import Me from '@/components/ui/Me.astro'
 import Layout from '@/layouts/Layout.astro'
 ---
 
 <Layout>
   <main class="relative mx-auto w-full max-w-4xl px-6 py-8">
+    <!-- Main title -->
+    <h1 class="mb-12 text-4xl font-bold md:text-5xl">
+      FrontEnd Developer
+      <span class="block sm:inline">
+        (<span class="opacity-60">
+          <span>web</span>,
+          <span>mobile</span>
+        </span>)
+      </span>
+    </h1>
+
+    <!-- ME Picture -->
+    <Me />
+    <!-- About me -->
     <article class="space-y-4 leading-relaxed opacity-82">
       <p>
         Hey 👋, I'm <span class="font-semibold opacity-100">Gohit</span>, a{' '}
@@ -26,5 +41,7 @@ import Layout from '@/layouts/Layout.astro'
         </a>
       </p>
     </article>
+
+    <!-- Articles -->
   </main>
 </Layout>
